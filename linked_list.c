@@ -13,7 +13,7 @@ typedef struct {
     Node *next;
 } Node;
 
-
+// initializes a node
 Node *initNode(int key) {
     Node *node = malloc(sizeof(Node));
     node->key = key;
@@ -21,6 +21,7 @@ Node *initNode(int key) {
     return node;
 }
 
+// prints a linked-list
 void printList(Node *head) {
     Node *temp = head;
     while (temp != NULL) {
@@ -29,6 +30,7 @@ void printList(Node *head) {
     }
 }
 
+// searches a linked-list
 int searchList(Node *head, int key) {
     Node *temp = head;
     while (temp != NULL) {
@@ -40,6 +42,21 @@ int searchList(Node *head, int key) {
     return 0;
 }
 
-int main() {
+// prints the operations menu
+void printMenu() {
+    printf("You can perform the following operations:\n");
+    printf("\t1. Add a node to the list\n");
+    printf("\t2. Remove a node from the list \n");
+    printf("\t3. Insert a node to the list at specified index");
+    printf("\t4. Print the list\n");
+    printf("\t5. Search the list\n");
+    printf("\t6. Quit.\n");
+}
+
+int main(int argc, char **argv) {
+
+    int operations = -1;
+    int num;
+
     return 0;
 }

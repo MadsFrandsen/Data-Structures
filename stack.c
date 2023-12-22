@@ -155,11 +155,13 @@ int main(int argc, char **argv)
                 case 1:
                     // Push
                     printf("Please type an integer value you want to push.\n");
-                    if (scanf("%d", &val) == 0) {
-                        printf("Please specify an integer.\n");
-                        break;
+                    num_received = scanf("%d", &val);
+                    if (num_received == 1) {
+                        pushStack(&myStack, val);
+                    } else {
+                        printf("Invalid input. Please specify an integer.\n");
+                        while (getchar() != '\n');
                     }
-                    pushStack(&myStack, val);
                     break;
                 case 2:
                     // Pop
@@ -172,8 +174,13 @@ int main(int argc, char **argv)
                     printf("Top of the stack: %d\n", val);
                     break;
                 case 4:
+                    // Quit
                     break;
             }
+        } else {
+            // Invalid input, clear the input buffer
+            printf("Invalid input. Please enter a valid option.\n");
+            while (getchar() != '\n');
         }
     }
 
