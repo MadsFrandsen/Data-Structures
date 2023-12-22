@@ -129,35 +129,53 @@ void freeStack(Stack *stack)
     free(stack->arr);
 }
 
-int main()
+
+void printMenu() {
+    printf("You can perform the following operations:\n");
+    printf("\t1. Push an element to the stack.\n");
+    printf("\t2. Pop an element from the stack.\n");
+    printf("\t3. Peek the top of the stack.\n");
+    printf("\t4. Quit.\n");
+}
+
+int main(int argc, char **argv)
 {
     Stack myStack;
 
     initStack(&myStack);
-    printf("%d\n", myStack.top);
 
-    pushStack(&myStack, 10);
-    pushStack(&myStack, 20);
-    pushStack(&myStack, 30);
-    // pushStack(&myStack, 40);
-    // pushStack(&myStack, 50);
-    // pushStack(&myStack, 60);
-    // pushStack(&myStack, 70);
-    // pushStack(&myStack, 80);
-    // pushStack(&myStack, 90);
-    // pushStack(&myStack, 100);
-    // pushStack(&myStack, 110);
-    // pushStack(&myStack, 120);
+    int operation = -1;
+    int val;
 
-    printf("Top element of stack: %d\n", peekStack(&myStack));
-    printf("Popped stack element: %d\n", popStack(&myStack));
-    printf("Popped stack element: %d\n", popStack(&myStack));
-
-    printf("Is the stack empty?: %s\n", isEmpty(&myStack) ? "Yes" : "No");
-
-    printf("Popped stack element: %d\n", popStack(&myStack));
-
-    printf("Is the stack empty?: %s\n", isEmpty(&myStack) ? "Yes" : "No");
+    while (operation != 4) {
+        printMenu();
+        int num_received = scanf("%d", &operation);
+        if (num_received == 1 && operation > 0 && operation <= 4) {
+            switch(operation) {
+                case 1:
+                    // Push
+                    printf("Please type an integer value you want to push.\n");
+                    if (scanf("%d", &val) == 0) {
+                        printf("Please specify an integer.\n");
+                        break;
+                    }
+                    pushStack(&myStack, val);
+                    break;
+                case 2:
+                    // Pop
+                    val = popStack(&myStack);
+                    printf("Popped value %d from the stack\n", val);
+                    break;
+                case 3:
+                    // Peek
+                    val = peekStack(&myStack);
+                    printf("Top of the stack: %d\n", val);
+                    break;
+                case 4:
+                    break;
+            }
+        }
+    }
 
     freeStack(&myStack);
 
