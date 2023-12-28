@@ -13,7 +13,7 @@ Node *root = NULL;
 Node *initNode(int data) {
     Node *node = malloc(sizeof(Node));
     if (node == NULL) {
-        printf("Memory allocaiton failed.\n");
+        printf("Memory allocation failed.\n");
         exit(EXIT_FAILURE);
     }
     node->data = data;
@@ -214,6 +214,9 @@ int main() {
                     // Quit
                     break;
             }
+        } else {
+            printf("Invalid input. Please specify one of the given integers.\n");
+            while (getchar() != '\n');
         }
     }
 
