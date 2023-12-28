@@ -50,7 +50,7 @@ int insertNode(int data) {
             parent->right = node;
         }
     }
-
+    printf("Node was successfully added.\n");
     return 1;
 }
 
@@ -124,6 +124,7 @@ int findNode(int data) {
 
     while (curr != NULL) {
         if (curr->data == data) {
+            printf("Node was found in tree.\n");
             return 1;
         } else {
             if (curr->data > data) {
@@ -133,6 +134,7 @@ int findNode(int data) {
             }
         }
     }
+    printf("Node could not be found in tree.\n");
     return 0;
 }
 
@@ -142,6 +144,14 @@ void inorderPrint(Node *node) {
         inorderPrint(node->left);
         printf("%d ",node->data);
         inorderPrint(node->right);
+    }
+}
+
+void freeTree(Node *node) {
+    if (node != NULL) {
+        freeTree(node->left);
+        freeTree(node->right);
+        free(node);
     }
 }
 
@@ -207,5 +217,6 @@ int main() {
         }
     }
 
+    freeTree(root);
     return 0;
 }
