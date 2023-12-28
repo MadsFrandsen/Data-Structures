@@ -44,7 +44,7 @@ int insertNode(int data) {
                 return 0;   
             }
         }
-        if (curr->data > data) {
+        if (parent->data > data) {
             parent->left = node;
         } else {
             parent->right = node;
@@ -65,7 +65,10 @@ int removeNode(int data) {
         if (curr->data == data) {
 
             if (curr->left == NULL && curr->right == NULL) {
-                if (parent->left == curr) {
+
+                if (parent == NULL) {
+                    root = NULL;
+                } else if (parent->left == curr) {
                     parent->left = NULL;
                 } else {
                     parent->right = NULL;
@@ -90,17 +93,15 @@ int removeNode(int data) {
                 curr->data = temp->data;
                 free(temp);
             } else {
-                if (curr->left == NULL) {
-                    temp = curr->right;
-                    curr->right = NULL;
-                } else {
-                    temp = curr->left;
-                    curr->left = NULL;
-                }
+                temp = curr->right;
+                curr->right = temp->right;
+                curr->left = temp->left;
                 curr->data = temp->data;
                 free(temp);
             }
 
+            // successfully removed the node
+            printf("Node was successfully removed.\n");
             return 1;
 
         } else if (curr->data > data) {
@@ -111,6 +112,8 @@ int removeNode(int data) {
             curr = curr->right;
         }
     }
+    // node not in tree
+    printf("Node could not be found in tree.\n");
     return 0;
 }
 
@@ -137,7 +140,7 @@ int findNode(int data) {
 void inorderPrint(Node *node) {
     if (node != NULL) {
         inorderPrint(node->left);
-        print(node->data);
+        printf("%d ",node->data);
         inorderPrint(node->right);
     }
 }
@@ -147,27 +150,57 @@ void printMenu() {
     printf("\t1. Add a node to the tree\n");
     printf("\t2. Remove a node to the tree\n");
     printf("\t3. Search for a given node\n");
-    printf("\t4. Quit\n");
+    printf("\t4. Print the tree inorder.\n");
+    printf("\t5. Quit\n");
 }
 
 
 int main() {
 
     int operation = -1;
+    int val;
     int num_received;
 
-    while (operation != 4) {
+    while (operation != 5) {
         printMenu();
         num_received = scanf("%d", &operation);
         if (num_received == 1 && operation > 0 && operation <= 4) {
             switch (operation) {
                 case 1:
+                    printf("Please give a value for the node.\n");
+                    num_received = scanf("%d", &val);
+                    if (num_received == 1) {
+                        insertNode(val);
+                    } else {
+                        printf("Invalid input. Please specify an integer.\n");
+                        while (getchar() != '\n');
+                    }
                     break;
                 case 2:
+                    printf("Please specify value of node to be removed.\n");
+                    num_received = scanf("%d", &val);
+                    if (num_received == 1) {
+                        removeNode(val);
+                    } else {
+                        printf("Invalid input. Please specify an integer.\n");
+                        while (getchar() != '\n');
+                    }
                     break;
                 case 3:
+                    printf("Please specify value to be searched for.\n");
+                    num_received = scanf("%d", &val);
+                    if (num_received == 1) {
+                        findNode(val);
+                    } else {
+                        printf("Invalid input. Please specify an integer.\n");
+                        while (getchar() != '\n');
+                    }
                     break;
                 case 4:
+                    inorderPrint(root);
+                    printf("\n");
+                    break;
+                case 5:
                     // Quit
                     break;
             }
