@@ -1,3 +1,13 @@
-.vscode
+# ignore compiled files
+*.o
 *.out
-*.txt
+*.exe
+main
+
+# Ignore Xcode and other IDE-related files
+.vscode/
+*.dSYM/
+
+# Ignore system files
+.DS_Store
+
